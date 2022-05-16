@@ -23,7 +23,7 @@
 
 <!-- Primary Meta Tags -->
 <title>
-    Django Pixel Lite - Presentation | AppSeed
+    Hall County Library System - Passport Management System
 </title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,7 +51,7 @@
 <body>
     
     {% include 'includes/navigation.html' %}
-
+            
     <main>
 
         {% include 'includes/preloader.html' %}
@@ -81,125 +81,90 @@
         </section>
         <!-- Section -->
         <div class="section section-md pt-4" style="padding-bottom: 0rem;">
-            <div class="container">
-                <div class="row mb-4 mb-lg-5">
-                    <div class="col-lg-4 col-sm-6">
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <label for="validationServerLastName">Last Name</label>
-                            <input type="text" class="form-control" id="validationServerLastName" required>
-                            <div class="invalid-feedback">
-                                Please enter your last name.
+            <form action="" method="post">
+                <div class="container">
+                    <div class="row mb-4 mb-lg-5">
+                        <div class="col-lg-4 col-sm-6">
+                            <!-- Form -->
+                            {% if msg %}
+                                {{ msg | safe }}
+                            {% endif %}  
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <label for="validationServerLastName">Last Name</label>
+                                {{ form.lastName }}
                             </div>
-                        </div>
-                        <!-- End of Form -->
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <label for="PhoneNumber">Phone Number</label>
-                            <input type="text" class="form-control" id="PhoneNumber" required>
-                            <div class="invalid-feedback">
-                                Please enter a valid phone number.
+                            <!-- End of Form -->
+                            <!-- Form -->
+                            <div class="mb-4">
+                                <label for="PhoneNumber">Phone Number</label>
+                                {{ form.phoneNumber }}
                             </div>
-                        </div>
-                        <!-- End of Form -->
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <label class="my-1 me-2" for="PhotosNeeded">Do You Need Photos Taken?</label>
-                            <select class="form-select" id="PhotosNeeded" aria-label="Default select example" required>
-                                <option value="1">Yes</option>
-                                <option value="2">No</option>
-                            </select>
-                        </div>
-                        <!-- End of Form -->
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <label for="NumberOfPassports">Number of People Applying for Passports</label>
-                            <input type="number" class="form-control" id="NumberOfPassports" required >
-                        </div>
-                        <!-- End of Form -->
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <label class="my-1 me-2" for="ValidID">Do you have a valid state issued ID?</label>
-                            <select class="form-select" id="ValidID" aria-label="Default select example" required >
-                                <option value="1">Yes</option>
-                                <option value="2" disabled>No</option>
-                            </select>
-                        </div>
-                        <!-- End of Form -->
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <label class="my-1 me-2" for="HasCheck">Do you have a check or a money order for the State Department?</label>
-                            <select class="form-select" id="HasCheck" aria-label="Default select example" required >
-                                <option value="1">Yes</option>
-                                <option value="2" disabled>No</option>
-                            </select>
-                        </div>
-                        <!-- End of Form -->
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <label class="my-1 me-2" for="minorInfo">Are both parents present or do you have correct supplemntal documentation?</label>
-                            <select class="form-select" id="minorInfo" aria-label="Default select example" required >
-                                <option value="1">Yes</option>
-                                <option value="2" disabled>No</option>
-                                <option value="3">N/A</option>
-                            </select>
-                        </div>
-                        <!-- End of Form -->
-                        <!-- Radio -->
-                        <fieldset>
-                            <legend class="h6">Which of the following did you bring?</legend>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="Radios" id="Radios1"
-                                    value="option1" checked>
-                                <label class="form-check-label" for="Radios1">
-                                    Original Birth certificate
-                                </label>
+                            <!-- End of Form -->
+                            <!-- Form -->
+                            <div class="mb-4">
+                                <label class="my-1 me-2" for="PhotosNeeded">Do You Need Photos Taken?</label>
+                                {{ form.photosNeeded }}
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="Radios" id="Radios2"
-                                    value="option2">
-                                <label class="form-check-label" for="Radios2">
-                                    Certified Copy of Birth certificate
-                                </label>
+                            <!-- End of Form -->
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <!-- Form -->
+                            <div class="mb-4">
+                                <label for="NumberOfPassports">Number of People Applying for Passports</label>
+                                {{ form.numPassports }}
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="Radios" id="Radios3"
-                                    value="option3">
-                                <label class="form-check-label" for="Radios3">
-                                    Expired Passport
-                                </label>
+                            <!-- End of Form -->
+                            <!-- Form -->
+                            <div class="mb-4">
+                                <label class="my-1 me-2" for="ValidID">Do you have a valid state issued ID?</label>
+                                {{ form.validID }}
+
+                                {% if form.validID.errors %}
+                                    <ol>
+                                    {% for error in form.validID.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="Radios" id="Radios3"
-                                    value="option4">
-                                <label class="form-check-label" for="Radios4">
-                                    Certificate of Naturalization
-                                </label>
+                            <!-- End of Form -->
+                            <!-- Form -->
+                            <div class="mb-4">
+                                <label class="my-1 me-2" for="HasCheck">Do you have a check or a money order for the State Department?</label>
+                                {{ form.moneyOrder }}
                             </div>
-                        </fieldset>
-                        <!-- End of Radio -->
+                            <!-- End of Form -->
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <!-- Form -->
+                            <div class="mb-4">
+                                <label class="my-1 me-2" for="minorInfo">Are both parents present or do you have correct supplemntal documentation?</label>
+                                {{ form.parentApproval }}
+                            </div>
+                            <!-- End of Form -->
+                            <!-- Radio -->
+                            <fieldset>
+                                <legend class="h6">Which of the following did you bring?</legend>
+                                {{ form.IDtype }}
+                            </fieldset>
+                            <!-- End of Radio -->
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="row mb-4 mb-lg-5">
-                    <div class="mb-4">
-                        <label class="my-1 me-2" for="HasCheck">Are you prepared to pay the library a separate fee of $35/passport (plus additional $15/photo)?</label>
-                        <select class="form-select" id="HasCheck" aria-label="Default select example" required >
-                            <option selected>Open this select menu</option>
-                            <option value="1">Yes</option>
-                            <option value="2" disabled>No</option>
-                        </select>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" name="register" class="btn btn-primary">Submit</button>
+                <div class="container">
+                    <div class="row mb-4 mb-lg-5">
+                        <div class="mb-4">
+                            <label class="my-1 me-2" for="HasCheck">Are you prepared to pay the library a separate fee of $35/passport (plus additional $15/photo)?</label>
+                            {{ form.libraryPayment }}
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <!-- End of Section -->
     </main>

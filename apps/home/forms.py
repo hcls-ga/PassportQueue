@@ -19,7 +19,7 @@ YNoptions = (
 )
 
 
-class patronRegistration(forms.forms):
+class patronRegistration(forms.Form):
     """
     We will start with the actual form objects then continue onto the DEF functions for validation.
     Basically anytime there is a 'No' value, it will raise an input error. Kind of lame.
@@ -54,8 +54,11 @@ class patronRegistration(forms.forms):
     )
 
     photosNeeded = forms.TypedChoiceField(
-        label="Do you need photos taken?"
-        choices=YNoptions
+        label="Do you need photos taken?",
+        choices=YNoptions,
+            widget=forms.Select(
+                attrs={'class':'form-select'}
+            )
     )
 
     numPassports = forms.IntegerField(
@@ -69,12 +72,18 @@ class patronRegistration(forms.forms):
 
     validID = forms.TypedChoiceField(
         label="Do you have a valid stat issued ID?",
-        choices=YNoptions
+        choices=YNoptions,
+            widget=forms.Select(
+                attrs={'class':'form-select'}
+            )
     )
 
     moneyOrder = forms.TypedChoiceField(
         label="Do you have a check or a money order for the State Department?",
-        choices=YNoptions
+        choices=YNoptions,
+            widget=forms.Select(
+                attrs={'class':'form-select'}
+            )
     )
 
     parentApproval = forms.TypedChoiceField(
@@ -83,24 +92,48 @@ class patronRegistration(forms.forms):
             (True,"Yes"),
             (False, "No"),
             (None,"N/A"),
-        )
+        ),
+            widget=forms.Select(
+                attrs={'class':'form-select'}
+            )
+        
     )
 
     IDtype = forms.ChoiceField(
-        widget=forms.RadioSelect(),
+        widget=forms.RadioSelect(
+            
+        ),
         choices=(
-            (1,"Original Birth certificate"),
-            (2,"Certified COpy of Birth Certificate"),
-            (3,"Expired Passport"),
-            (4,"Certificate of Naturalization"),
+                (1,"Original Birth certificate"),
+                (2,"Certified COpy of Birth Certificate"),
+                (3,"Expired Passport"),
+                (4,"Certificate of Naturalization"),
+            )
         )
-    )
 
-    libraryPayment = forms.ChoiceField(
-        widget=forms.TypedChoiceField(
+    libraryPayment = forms.TypedChoiceField(
             label="Are you prepared to pay the library a separate fee of $35/passport (plus additional $15/photo)?",
-            choices=YNoptions
+            choices=YNoptions,
+            widget=forms.Select(
+                attrs={'class':'form-select'}
+            )
         )
-    )
 
     #Starting validation functions.
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if cleaned_data.get("validID") == "No":
+            msg = "You must have a valid ID"
+            self.add_error("validID",msg)
+        if cleaned_data.get("moneyOrder") == "False":
+            msg = "You must have a money order or check for the state department"
+            self.add_error("moneyOrder",msg)
+        if cleaned_data.get("parentApproval") == "False":
+            msg = "If there are minors applying for a passport you must have appropriate documentation"
+            self.add_error("parentApproval",msg)
+        if cleaned_data.get("libraryPayment") == "False":
+            msg = "There is a $35 fee that must be paid to "
+            self.add_error("libraryPayment",msg)
+        return cleaned_data
