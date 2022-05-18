@@ -1,18 +1,6 @@
-# [Django Pixel Lite](https://appseed.us/django/django-pixel-bootstrap-uikit)
+# Passport Queue - [Django Pixel Lite](https://appseed.us/django/django-pixel-bootstrap-uikit)
 
 Open-Source **[Django](https://appseed.us/django)** starter coded with basic modules, database, ORM and deployment scripts on top of **[Pixel Lite](https://docs.appseed.us/content/bootstrap-template/pixel-lite-template)** UI Kit, a fully responsive and modern **Bootstrap 5 UI Kit** that will help you build creative and professional websites. The Django codebase is provided with database, ORM, authentication, and deployment scripts. 
-
-<br />
-
-> Features
-
-- `Up-to-date dependencies`
-- [SCSS compilation](#recompile-css) via **Gulp**
-- UI Kit: **Pixel Lite** (Free Version) by **Themesberg**
-- `DB Tools`: SQLite Database, Django Native ORM
-- Session-Based Authentication, Forms validation
-- `Deployment`: **Docker**, Gunicorn / Nginx
-- Support via **Github** (issues tracker) and [Discord](https://discord.gg/fZC6hup).
 
 <br />
 
@@ -21,29 +9,6 @@ Open-Source **[Django](https://appseed.us/django)** starter coded with basic mod
 - 👉 [Django Pixel Lite](https://appseed.us/django/django-pixel-bootstrap-uikit) - product page
 - 👉 [Django Pixel Lite](https://django-pixel-lite.appseed-srv1.com/) - LIVE Deployment
 - 👉 More [Django Apps](https://appseed.us/django) - provided by AppSeed 
-
-<br />
-
-## ✨ Quick Start in `Docker`
-
-> Get the code
-
-```bash
-$ git clone https://github.com/app-generator/django-pixel.git
-$ cd django-pixel
-```
-
-> Start the app in Docker
-
-```bash
-$ docker-compose up --build 
-```
-
-Visit `http://localhost:85` in your browser. The app should be up & running.
-
-<br />
-
-![Django Pixel Lite - Template project provided by AppSeed.](https://user-images.githubusercontent.com/51070104/143608934-79032f54-d4ef-411a-ba3a-51ddd1f96ee3.gif)
 
 <br />
 
@@ -99,6 +64,7 @@ The project is coded using a simple and intuitive structure presented bellow:
    |    |-- home/                          # A simple app that serve HTML files
    |    |    |-- views.py                  # Serve HTML pages for authenticated users
    |    |    |-- urls.py                   # Define some super simple routes  
+   |    |    |-- model.py                  # Defines the model for a Patron
    |    |
    |    |-- authentication/                # Handles auth routes (login and register)
    |    |    |-- urls.py                   # Define authentication routes  
@@ -124,7 +90,7 @@ The project is coded using a simple and intuitive structure presented bellow:
    |         |    |-- register.html         # Register page
    |         |
    |         |-- home/                      # UI Kit Pages
-   |              |-- index.html            # Index page
+   |              |-- index.html            # Passport Registration
    |              |-- 404-page.html         # 404 page
    |              |-- *.html                # All other pages
    |
