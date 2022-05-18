@@ -9,6 +9,7 @@ from django.contrib import admin
 from . import models
 
 class patronAdmin(admin.ModelAdmin):
-    list_display = ('order','last_name','datetime_submitted')
+    list_display = ('order','last_name','status','datetime_submitted','total_passports','photo_status')
+    list_filter = ('active',)
 
 admin.site.register(models.Patron, patronAdmin)

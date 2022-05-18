@@ -18,6 +18,10 @@ YNoptions = (
     (False,"No"),
 )
 
+def YN_validator(value):
+    if value == "No" or value == False:
+        raise forms.ValidationError("This Questions MUST be a 'Yes'")
+
 
 class patronRegistration(forms.Form):
     """
@@ -75,7 +79,8 @@ class patronRegistration(forms.Form):
         choices=YNoptions,
             widget=forms.Select(
                 attrs={'class':'form-select'}
-            )
+            ),
+        validators=[YN_validator,]
     )
 
     moneyOrder = forms.TypedChoiceField(
@@ -83,7 +88,8 @@ class patronRegistration(forms.Form):
         choices=YNoptions,
             widget=forms.Select(
                 attrs={'class':'form-select'}
-            )
+            ),
+        validators=[YN_validator,]
     )
 
     parentApproval = forms.TypedChoiceField(
@@ -96,7 +102,6 @@ class patronRegistration(forms.Form):
             widget=forms.Select(
                 attrs={'class':'form-select'}
             )
-        
     )
 
     IDtype = forms.ChoiceField(
@@ -116,24 +121,8 @@ class patronRegistration(forms.Form):
             choices=YNoptions,
             widget=forms.Select(
                 attrs={'class':'form-select'}
-            )
+            ),
+        validators=[YN_validator,]
         )
 
     #Starting validation functions.
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        if cleaned_data.get("validID") == "No":
-            msg = "You must have a valid ID"
-            self.add_error("validID",msg)
-        if cleaned_data.get("moneyOrder") == "False":
-            msg = "You must have a money order or check for the state department"
-            self.add_error("moneyOrder",msg)
-        if cleaned_data.get("parentApproval") == "False":
-            msg = "If there are minors applying for a passport you must have appropriate documentation"
-            self.add_error("parentApproval",msg)
-        if cleaned_data.get("libraryPayment") == "False":
-            msg = "There is a $35 fee that must be paid to "
-            self.add_error("libraryPayment",msg)
-        return cleaned_data

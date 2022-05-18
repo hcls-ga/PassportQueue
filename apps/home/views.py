@@ -44,7 +44,7 @@ def index(request):
                 photo_status = photos,
                 total_passports = numPassports,
                 datetime_submitted = datetime.now(pytz.utc),
-                status = "Waiting"
+                status = "waiting"
             ).save()
     else:
         form = patronRegistration()

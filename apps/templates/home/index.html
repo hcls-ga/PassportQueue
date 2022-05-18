@@ -55,7 +55,29 @@
     <main>
 
         {% include 'includes/preloader.html' %}
-
+        <!-- Start Modal on Sucess-->
+        {% if successful_submit == True %}
+            <div class="modal fade show" id="modal-notification" tabindex="-1" aria-labelledby="modal-notification" style="display: block;" aria-modal="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content bg-primary text-white">
+                        <div class="modal-header border-0">
+                            <button type="button" class="btn-close bg-gray-500" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="py-3 text-center">
+                                <span class="modal-icon display-1-lg"><span class="far fa-envelope-open"></span></span>
+                                <h2 class="h4 modal-title my-3">Important message!</h2>
+                                <p class="px-lg-5">Do you know that you can assign status and relation to a company
+                                    right in the visit list?.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-secondary">
+                            <button type="button" class="btn btn-sm btn-white">Go to Inbox</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <!-- Hero -->
         <section class="section-header overflow-hidden pt-7 pt-lg-8 pb-9 pb-lg-12 bg-primary text-white" style="padding-top: 10rem !important; padding-bottom: 0rem !important">
             <div class="container">
@@ -81,14 +103,11 @@
         </section>
         <!-- Section -->
         <div class="section section-md pt-4" style="padding-bottom: 0rem;">
-            <form action="" method="post">
+            <form action="" method="post" id="form">
                 <div class="container">
                     <div class="row mb-4 mb-lg-5">
                         <div class="col-lg-4 col-sm-6">
                             <!-- Form -->
-                            {% if msg %}
-                                {{ msg | safe }}
-                            {% endif %}  
                             {% csrf_token %}
                             <div class="mb-4">
                                 <label for="validationServerLastName">Last Name</label>
@@ -123,17 +142,24 @@
                                 {% if form.validID.errors %}
                                     <ol>
                                     {% for error in form.validID.errors %}
-                                        <li><strong>{{ error|escape }}</strong></li>
+                                        <div class="alert alert-danger" role="alert">{{ error|escape }}</div>
                                     {% endfor %}
                                     </ol>
                                 {% endif %}
-
                             </div>
                             <!-- End of Form -->
                             <!-- Form -->
                             <div class="mb-4">
                                 <label class="my-1 me-2" for="HasCheck">Do you have a check or a money order for the State Department?</label>
                                 {{ form.moneyOrder }}
+
+                                {% if form.moneyOrder.errors %}
+                                    <ol>
+                                    {% for error in form.moneyOrder.errors %}
+                                        <div class="alert alert-danger" role="alert">{{ error|escape }}</div>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
                             </div>
                             <!-- End of Form -->
                         </div>
@@ -142,6 +168,14 @@
                             <div class="mb-4">
                                 <label class="my-1 me-2" for="minorInfo">Are both parents present or do you have correct supplemntal documentation?</label>
                                 {{ form.parentApproval }}
+
+                                {% if form.parentApproval.errors %}
+                                    <ol>
+                                    {% for error in form.parentApproval.errors %}
+                                        <div class="alert alert-danger" role="alert">{{ error|escape }}</div>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
                             </div>
                             <!-- End of Form -->
                             <!-- Radio -->
@@ -158,9 +192,22 @@
                         <div class="mb-4">
                             <label class="my-1 me-2" for="HasCheck">Are you prepared to pay the library a separate fee of $35/passport (plus additional $15/photo)?</label>
                             {{ form.libraryPayment }}
+
+                            {% if form.libraryPayment.errors %}
+                                <ol>
+                                {% for error in form.libraryPayment.errors %}
+                                    <div class="alert alert-danger" role="alert">{{ error|escape }}</div>
+                                {% endfor %}
+                                </ol>
+                            {% endif %}
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="container">
+                                <div class="row mb-4 mb-lg-5">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="reset" class="btn btn-danger" href="/" value="Reset">Reset</button>
+                                </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
