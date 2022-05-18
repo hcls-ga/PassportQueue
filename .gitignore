@@ -18,6 +18,7 @@ venv
 
 # other
 .DS_Store
+secrets.json
 
 # javascript
 package-lock.json
