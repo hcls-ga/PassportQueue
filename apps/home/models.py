@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 import django
 from django.db.models import Q
-from sqlalchemy import false, true
 from datetime import datetime
 import pytz
 
@@ -26,8 +25,8 @@ class Patron(models.Model):
     expidited_passport_count = models.IntegerField(default=0)
     total_passports = models.IntegerField(default=1)
     datetime_submitted = models.DateTimeField(default=django.utils.timezone.now)
-    datetime_started = models.DateTimeField(null=true, blank=true)
-    datetime_finished = models.DateTimeField(null=true, blank=true)
+    datetime_started = models.DateTimeField(null=True, blank=False)
+    datetime_finished = models.DateTimeField(null=True, blank=False)
     agent = models.ForeignKey(User, on_delete=models.SET_DEFAULT, related_name="patron", default=1)
     status = models.TextField(
         choices = (
@@ -38,7 +37,7 @@ class Patron(models.Model):
             ("coming_back","Coming Back"),
         ),
     )
-    active = models.BooleanField(default=true)
+    active = models.BooleanField(default=True)
     order = models.IntegerField(default=1)
 
     @property
