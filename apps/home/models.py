@@ -25,8 +25,8 @@ class Patron(models.Model):
     expidited_passport_count = models.IntegerField(default=0)
     total_passports = models.IntegerField(default=1)
     datetime_submitted = models.DateTimeField(default=django.utils.timezone.now)
-    datetime_started = models.DateTimeField(null=True, blank=False)
-    datetime_finished = models.DateTimeField(null=True, blank=False)
+    datetime_started = models.DateTimeField(null=True, blank=True)
+    datetime_finished = models.DateTimeField(null=True, blank=True)
     agent = models.ForeignKey(User, on_delete=models.SET_DEFAULT, related_name="patron", default=1)
     status = models.TextField(
         choices = (
