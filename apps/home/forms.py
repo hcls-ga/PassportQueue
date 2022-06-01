@@ -1,15 +1,10 @@
 # -*- encoding: utf-8 -*-
 """
-Copyright (c) 2019 - present AppSeed.us
 Copyright (c) 2022 - Hall County Library System
 dyoung@hallcountylibrary.org
 """
 
-from logging import PlaceHolder
-from tkinter.ttk import Label
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 #Yes/No Options
 
@@ -19,8 +14,10 @@ YNoptions = (
 )
 
 def YN_validator(value):
-    if value == "No" or value == False:
-        raise forms.ValidationError("This Questions MUST be a 'Yes'")
+    if value == "No" or value == False or value == "False":
+        raise forms.ValidationError("You MUST have the information requested.")
+    else:
+        print(value)
 
 
 class patronRegistration(forms.Form):
@@ -60,9 +57,9 @@ class patronRegistration(forms.Form):
     photosNeeded = forms.TypedChoiceField(
         label="Do you need photos taken?",
         choices=YNoptions,
-            widget=forms.Select(
-                attrs={'class':'form-select'}
-            )
+        widget=forms.Select(
+            attrs={'class':'form-select'}
+        )
     )
 
     numPassports = forms.IntegerField(
@@ -77,31 +74,32 @@ class patronRegistration(forms.Form):
     validID = forms.TypedChoiceField(
         label="Do you have a valid stat issued ID?",
         choices=YNoptions,
-            widget=forms.Select(
-                attrs={'class':'form-select'}
-            ),
+        widget=forms.Select(
+            attrs={'class':'form-select'}
+        ),
         validators=[YN_validator,]
     )
 
     moneyOrder = forms.TypedChoiceField(
         label="Do you have a check or a money order for the State Department?",
         choices=YNoptions,
-            widget=forms.Select(
-                attrs={'class':'form-select'}
-            ),
+        widget=forms.Select(
+            attrs={'class':'form-select'}
+        ),
         validators=[YN_validator,]
     )
 
     parentApproval = forms.TypedChoiceField(
-        label="Are both parents present or do you have correct supplemntal documentation?",
+        label="Are both parents present or do you have correct supplemental documentation?",
         choices=(
             (True,"Yes"),
             (False, "No"),
-            (None,"N/A"),
+            (0,"N/A"),
         ),
-            widget=forms.Select(
-                attrs={'class':'form-select'}
-            )
+        widget=forms.Select(
+            attrs={'class':'form-select'}
+        ),
+        validators=[YN_validator,]
     )
 
     IDtype = forms.ChoiceField(
@@ -110,7 +108,7 @@ class patronRegistration(forms.Form):
         ),
         choices=(
                 (1,"Original Birth certificate"),
-                (2,"Certified COpy of Birth Certificate"),
+                (2,"Certified Copy of Birth Certificate"),
                 (3,"Expired Passport"),
                 (4,"Certificate of Naturalization"),
             )
@@ -124,5 +122,3 @@ class patronRegistration(forms.Form):
             ),
         validators=[YN_validator,]
         )
-
-    #Starting validation functions.
