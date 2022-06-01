@@ -29,7 +29,7 @@ def get_secret(setting, secrets=secrets):
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = get_secret('SECRET_KEY')
+SECRET_KEY = get_secret('SECRET_KEY')
 """
 #This is the security key for non-live versions
 SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
