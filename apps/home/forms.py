@@ -5,10 +5,13 @@ dyoung@hallcountylibrary.org
 """
 
 from django import forms
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput, DatePickerInput
+
 
 #Yes/No Options
 
 YNoptions = (
+    (False, "-"),
     (True,"Yes"),
     (False,"No"),
 )
@@ -59,7 +62,8 @@ class patronRegistration(forms.Form):
         choices=YNoptions,
         widget=forms.Select(
             attrs={'class':'form-select'}
-        )
+        ),
+        validators=[YN_validator,]
     )
 
     numPassports = forms.IntegerField(
@@ -74,6 +78,7 @@ class patronRegistration(forms.Form):
     validID = forms.TypedChoiceField(
         label="Do you have a valid stat issued ID?",
         choices=YNoptions,
+
         widget=forms.Select(
             attrs={'class':'form-select'}
         ),
@@ -91,11 +96,7 @@ class patronRegistration(forms.Form):
 
     parentApproval = forms.TypedChoiceField(
         label="Are both parents present or do you have correct supplemental documentation?",
-        choices=(
-            (True,"Yes"),
-            (False, "No"),
-            (0,"N/A"),
-        ),
+        choices=YNoptions,
         widget=forms.Select(
             attrs={'class':'form-select'}
         ),
@@ -122,3 +123,96 @@ class patronRegistration(forms.Form):
             ),
         validators=[YN_validator,]
         )
+
+class patronModification(forms.Form):
+    """
+#Notes
+
+    """
+
+    lastName = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeHolder":"Last Name",
+                "class":"form-control"
+            }
+        )
+    )
+
+    phoneNumber = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeHolder":"Last Name",
+                "class":"form-control"
+            }
+        )
+    )
+
+    photosNeeded = forms.TypedChoiceField(
+        label="Do you need photos taken?",
+        choices=YNoptions,
+        widget=forms.Select(
+            attrs={'class':'form-select'}
+        )
+    )
+
+    photoCount = forms.IntegerField(
+        label="Number of Photos Taken",
+        widget=forms.NumberInput(
+            attrs={
+                "class":"form-control"
+            }
+        )
+    )
+
+    minorCount = forms.IntegerField(
+        label="Number of Minor Passports",
+        widget=forms.NumberInput(
+            attrs={
+                "class":"form-control"
+            }
+        )
+    )
+
+    adultCount = forms.IntegerField(
+        label="Number of Adult Passports",
+        widget=forms.NumberInput(
+            attrs={
+                "class":"form-control"
+            }
+        )
+    )
+
+    expeditedCount = forms.IntegerField(
+        label="Number of Passport Expedited",
+        widget=forms.NumberInput(
+            attrs={
+                "class":"form-control"
+            }
+        )
+    )
+    submitted = forms.DateTimeField(
+        input_formats=['%d/%m/%Y %H:%M'],
+        widget=forms.DateTimeInput(
+            attrs={
+                "class":"form-control datetimepicker-input",
+                'data-target': '#datetimepicker1'
+            }
+        )
+    )
+    
+    started = forms.DateTimeField(
+        widget=DateTimePickerInput(
+            attrs={
+                "class":"form-control datetimepicker-input"
+            }
+        )
+    )
+
+    finished = forms.DateTimeField(
+        widget=DatePickerInput(
+            attrs={
+                "class":"form-control datetimepicker-input"
+            }
+        )
+    )

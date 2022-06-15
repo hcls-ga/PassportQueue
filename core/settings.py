@@ -26,11 +26,11 @@ def get_secret(setting, secrets=secrets):
         return secrets[setting]
     except KeyError:
         raise ImproperlyConfigured("Set the {} setting".format(setting))
-"""
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = get_secret('SECRET_KEY')
-
+SECRET_KEY = get_secret('SECRET_KEY')
+"""
 #This is the security key for non-live versions
 SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 
@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
+    'bootstrap_datepicker_plus',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

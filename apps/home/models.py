@@ -5,12 +5,12 @@ Copyright (c) 2019 - present AppSeed.us
 
 from random import choices
 from django.db import models
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.utils import timezone
 import django
 from django.db.models import Q
-from datetime import datetime
-import pytz
+from django.contrib.admin.widgets import AdminDateWidget
 
 # Create your models here.
 
@@ -39,6 +39,13 @@ class Patron(models.Model):
     )
     active = models.BooleanField(default=True)
     order = models.IntegerField(default=1)
+
+    @classmethod
+    def from_db(cls, db, field_names, values):
+
+        instance = super().from_db(db, field_names, values)
+        instance._loaded_values = dict(zip(field_names,values))
+        return instance
 
     @property
     def getActive(self):
@@ -72,12 +79,22 @@ class Patron(models.Model):
             self.order = 0
             curOrder = self.getOrder
         return curOrder
-    
+
+        
     def save(self, *args, **kwargs):
         self.active = self.getActive
         self.order = self.getOrder
+        if not self._state.adding:
+            newDate = self.datetime_submitted
+            if self._loaded_values['datetime_submitted'] != self.datetime_submitted and self._loaded_values['datetime_submitted'] != None:
+                self._loaded_values['datetime_submitted'] = self.datetime_submitted
+                self.save
+                
         super(Patron, self).save(*args, **kwargs)
 
 
 class Meta():
     ordering = ['-order','date_submitted']
+
+#Creating the update form
+

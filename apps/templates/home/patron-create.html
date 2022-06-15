@@ -1,0 +1,98 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Queue {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %} {{ form.media }} {% endblock stylesheets %}
+
+{% block content %}
+
+<main>
+
+    {% include 'includes/preloader.html' %}
+
+    <!-- Hero -->
+    <div class="section-header pb-6 bg-primary text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center">
+                    <h1 class="display-3 mb-4">Patron Creator</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of Hero -->
+    <div class="section section-md">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <form action="" method="post" id="form">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.lastName }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.phoneNumber }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.photosNeeded }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.photoCount }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.minorCount }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.adultCount }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.expeditedCount }}
+                        </div>
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <!-- <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/> -->
+                            {{ form.submitted}}
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                        <script>
+                            $(function () {
+                                $("#datetimepicker1").datetimepicker({
+                                    format: 'DD/MM/YYYY HH:mm',
+                                });
+                            });
+                        </script>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.started }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="validationServerLastName">Last Name</label>
+                            {{ form.finished }}
+                        </div>
+
+                        <div class="row mb-4 mb-lg-5">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-danger" href="/" value="Reset">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

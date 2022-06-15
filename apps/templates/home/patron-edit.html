@@ -1,0 +1,78 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Queue {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<main>
+
+    {% include 'includes/preloader.html' %}
+
+    <!-- Hero -->
+    <div class="section-header pb-6 bg-primary text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center">
+                    <h1 class="display-3 mb-4">Patron Editor</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of Hero -->
+    <div class="section section-md">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    {% csrf_token %}
+                    <form action="" method="post" id="form">
+                        <div class="mb-4">
+                            {{ form.lastName }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.phoneNumber }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.photosNeeded }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.minorCount }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.adultCount }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.expeditedCount }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.submitted }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.started }}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.finished }}
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="d-grid">
+                    <div class="container">
+                        <div class="row mb-4 mb-lg-5">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
