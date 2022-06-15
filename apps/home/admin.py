@@ -81,23 +81,6 @@ class patronAdmin(admin.ModelAdmin):
 
         return response
     export_csv.short_description = "Export Selected"
-    """
-    def changelist_view(self, request, extra_context=None):
-
-        referer = request.META.get('HTTP_REFERER', '')
-
-        test = referer.split(request.META['PATH_INFO'])
-        
-        if test[-1] == '' and not test[-1].startswith('?'):
-            
-
-            if not  'active__exact' in request.GET:
-        
-                q = request.GET.copy()
-                q['active__exact'] = '1'
-                request.GET = q
-                request.META['QUERY_STRING'] = request.GET.urlencode()
-        return super(patronAdmin,self).changelist_view(request, extra_context=extra_context)
-    """
+    
 admin.site.register(models.Patron, patronAdmin)
 

@@ -17,7 +17,7 @@ from django.contrib.admin.widgets import AdminDateWidget
 class Patron(models.Model):
     id=models.AutoField(primary_key=True)
     last_name = models.CharField(max_length=200)
-    phone_number = models.CharField(max_length=200)
+    phone_number = models.CharField(null=True,max_length=200)
     photo_status = models.BooleanField(default=False)
     photo_count = models.IntegerField(default=0)
     minor_passport_count = models.IntegerField(default=0)
