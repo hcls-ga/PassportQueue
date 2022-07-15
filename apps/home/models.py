@@ -86,6 +86,7 @@ class Patron(models.Model):
     def save(self, *args, **kwargs):
         self.active = self.getActive
         self.order = self.getOrder
+        #This was a test and I am not sure if I can remove it but it's currently working so...
         if not self._state.adding:
             newDate = self.datetime_submitted
             if self._loaded_values['datetime_submitted'] != self.datetime_submitted and self._loaded_values['datetime_submitted'] != None:
@@ -97,6 +98,4 @@ class Patron(models.Model):
 
 class Meta():
     ordering = ['-order','date_submitted']
-
-#Creating the update form
 
