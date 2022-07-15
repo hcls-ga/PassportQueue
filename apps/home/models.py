@@ -59,22 +59,24 @@ class Patron(models.Model):
         active = Patron.objects.filter(active=True).filter(~Q(id=self.id)).order_by('datetime_submitted')
         curOrder = 1
         nextOrder = 1
-        if curOrder != -1:
-            for i in active:
-                #if it's added and it's time is greater than i's time add one to it's order number
-                if i.datetime_submitted < self.datetime_submitted:
-                    curOrder = curOrder + 1
-                    nextOrder = nextOrder + 1
-                #if it's added and it's time is less than i's time add on to the next order variable and assign it
-                elif i.datetime_submitted > self.datetime_submitted and i.order > 0 and self.getActive and i.active:
-                    nextOrder = nextOrder + 1
-                    Patron.objects.filter(id=i.id).update(order = nextOrder)
-                #if it's removed and it's time is less than i's sub one to the next order and assign
-                elif i.datetime_submitted > self.datetime_submitted and self.getActive == False:
-                    Patron.objects.filter(id=i.id).update(order = nextOrder)
-                    nextOrder = nextOrder + 1
-            if not self.getActive:
-                curOrder = -1
+        
+        for i in active:
+            #if it's added and it's time is greater than i's time add one to it's order number
+            if i.datetime_submitted < self.datetime_submitted:
+                curOrder = curOrder + 1
+                Patron.objects.filter(id=i.id).update(order = nextOrder)
+                nextOrder = nextOrder + 1
+            #if it's added and it's time is less than i's time add on to the next order variable and assign it
+            elif i.datetime_submitted > self.datetime_submitted and i.order > 0 and self.getActive and i.active:
+                nextOrder = nextOrder + 1
+                Patron.objects.filter(id=i.id).update(order = nextOrder)
+            #if it's removed and it's time is less than i's sub one to the next order and assign
+            elif i.datetime_submitted > self.datetime_submitted and self.getActive == False:
+                Patron.objects.filter(id=i.id).update(order = nextOrder)
+                nextOrder = nextOrder + 1
+        #This is here just in case I missed something or a photon flips a bit. Probs can remove it but it ain't broke.
+        if not self.getActive:
+            curOrder = -1
         if curOrder == -1 and self.getActive:
             self.order = 0
             curOrder = self.getOrder
