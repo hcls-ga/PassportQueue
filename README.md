@@ -30,6 +30,13 @@ $
 $ # Install modules - SQLite Storage
 $ pip3 install -r requirements.txt
 $
+$ # Xreate Admin Account for Staff Login
+$ python manage.py create superuser
+$ Username: admin
+$ Email Address: admin@example.com
+$ Password: *********
+$ Password (again): *********
+$
 $ # Create tables
 $ python manage.py makemigrations
 $ python manage.py migrate
