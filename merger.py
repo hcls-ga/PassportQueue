@@ -1,3 +1,3 @@
 import os
-os.system("/home/n11unfbolhej/repositories/PassportQueue/manage.py makemigrations --merge")
+os.system("/home/n11unfbolhej/virtualenv/repositories/PassportQueue/manage.py makemigrations --merge")
 
