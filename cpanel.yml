@@ -1,0 +1,5 @@
+---
+deployment:
+    tasks:
+    - export DEPLOYPATH=/home/n11unfbolhej/public_html/beta.hallco.org/
+    - /bin/cp -R * $DEPLOYPATH
