@@ -16,8 +16,6 @@ from django.template import loader
 from django.urls import reverse
 
 from .forms import patronModification, patronRegistration
-
-
 def index(request):
     context = {'segment': 'index'}
     
@@ -92,3 +90,6 @@ def editPatron(request, id):
                     'home/patron-edit.html',
                     {'form',form}
     )
+
+def reports(request):
+    return render(request, 'home/report.html')
