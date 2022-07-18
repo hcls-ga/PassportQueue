@@ -13,3 +13,4 @@ whitenoise==5.3.0
 mysqlclient==2.1.0
 SQLAlchemy==1.4.36
 django-bootstrap-datepicker-plus==4.0.0
+django-bootstrap3==21.2.0
