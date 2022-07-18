@@ -1,2 +1,2 @@
-manage.py makemigrations --merge
+os.system("manage.py makemigrations --merge")
 
