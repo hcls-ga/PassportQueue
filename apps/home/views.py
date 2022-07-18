@@ -4,18 +4,18 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from datetime import datetime
+
+import pytz
+from apps.home.models import Patron
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.template import loader
 from django.urls import reverse
-from django.shortcuts import render
-from django.views.generic import CreateView
-from .forms import patronRegistration
-from apps.home.models import Patron
-import pytz
-#def register(CreateView):
-    
+
+from .forms import patronModification, patronRegistration
 
 
 def index(request):
@@ -49,9 +49,6 @@ def index(request):
     else:
         form = patronRegistration()
 
-
-    #return render(request, "accounts/login.html")
-    #html_template = loader.get_template('home/index.html')
     return render(request,'home/index.html', {"form": form, "msg":msg})
 
 
@@ -79,3 +76,19 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+def createPatron(request):
+    form = patronModification
+    return render(request, 'home/patron-create.html', {'form':form})
+
+def editPatron(request, id):
+    """
+    notes
+    """
+    instance = Patron.objects.get(id=id)
+    form = patronModification(instance=instance)
+    form.fields['submitted'].widget = DateTimePickerInput()
+    return render(request,
+                    'home/patron-edit.html',
+                    {'form',form}
+    )
