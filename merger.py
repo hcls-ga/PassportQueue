@@ -1,2 +1,2 @@
-"manage.py" makemigrations --merge
+manage.py makemigrations --merge
 
