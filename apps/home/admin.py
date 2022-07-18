@@ -3,7 +3,6 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from types import NoneType
 from django.contrib import admin
 from django.http import HttpResponse
 import csv
