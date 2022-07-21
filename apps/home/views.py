@@ -92,4 +92,4 @@ def editPatron(request, id):
     )
 
 def reports(request):
-    return render(request, 'home/report.html')
+    return render(request, 'home/Report.html')
