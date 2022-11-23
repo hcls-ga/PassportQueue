@@ -95,6 +95,21 @@ class Patron(models.Model):
                 
         super(Patron, self).save(*args, **kwargs)
 
+    def countActive(self):
+        # I made this because it wasn't working as in the views.py
+        # I was passing a set instead of a dict
+        # I leave this here as a monument to my stupidity
+        active = Patron.objects.filter(active=True)
+        count = active.count
+
+        return count
+
+class Question(models.Model):
+
+    id = models
+
+    def save(self, *args, **kwargs):
+        super(Patron, self).save(*args, **kwargs)
 
 class Meta():
     ordering = ['-order','date_submitted']
