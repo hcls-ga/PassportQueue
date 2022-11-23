@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Grab Stuff from Secrets.json
-"""
+
 with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
     secrets = json.load(secrets_file)
 
@@ -33,7 +33,7 @@ SECRET_KEY = get_secret('SECRET_KEY')
 """
 #This is the security key for non-live versions
 SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
-
+"""
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # Use this for test environments
-"""
+
 DATABASES = {
     'default': {
         'ENGINE' : 'django.db.backends.mysql',
@@ -110,7 +110,7 @@ DATABASES = {
         'NAME': 'db.sqlite3',
     }
 }
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
