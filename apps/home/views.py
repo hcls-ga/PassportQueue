@@ -78,6 +78,7 @@ def index_ex(request):
                 datetime_submitted = datetime.now(pytz.utc),
                 status = "waiting"
             ).save()
+            return redirect('sucess')
     else:
         form = patronRegistration()
 
