@@ -44,6 +44,7 @@ def index(request):
                 datetime_submitted = datetime.now(pytz.utc),
                 status = "waiting"
             ).save()
+            return redirect('sucess')
     else:
         form = patronRegistration()
 
@@ -131,9 +132,10 @@ def reports(request):
 This is the page that users will hit after they sucessfully submit the form.
 I am hopeing to have a count of the people in front of them.
 """
+
 def sucess(request):
     active = Patron.objects.filter(active=True)
-    count = active.count
+    count = active.count() - 1
     # It took me 2 hours to figure out that {'count',count} should be {'count':count}
     # I could clean this up but I am done.
     return render(request, 'home/sucess.html', {'count':count})
