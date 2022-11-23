@@ -49,9 +49,35 @@
 
 </head>
 <body>
+    
     {% include 'includes/navigation.html' %}
+            
     <main>
+
         {% include 'includes/preloader.html' %}
+        <!-- Start Modal on Sucess-->
+        {% if successful_submit == True %}
+            <div class="modal fade show" id="modal-notification" tabindex="-1" aria-labelledby="modal-notification" style="display: block;" aria-modal="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content bg-primary text-white">
+                        <div class="modal-header border-0">
+                            <button type="button" class="btn-close bg-gray-500" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="py-3 text-center">
+                                <span class="modal-icon display-1-lg"><span class="far fa-envelope-open"></span></span>
+                                <h2 class="h4 modal-title my-3">Important message!</h2>
+                                <p class="px-lg-5">Do you know that you can assign status and relation to a company
+                                    right in the visit list?.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-secondary">
+                            <button type="button" class="btn btn-sm btn-white">Go to Inbox</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <!-- Hero -->
         <section class="section-header overflow-hidden pt-7 pt-lg-8 pb-9 pb-lg-12 bg-primary text-white" style="padding-top: 10rem !important; padding-bottom: 0rem !important">
             <div class="container">
@@ -62,9 +88,9 @@
                         </h1>
                         <!-- Button Modal -->
                         <div class="d-flex justify-content-center align-items-center mb-5">
-                            <a href="/es" class="btn btn-tertiary mb-3 mt-2 me-2 me-md-3 animate-up-2">
+                            <a href="/" class="btn btn-tertiary mb-3 mt-2 me-2 me-md-3 animate-up-2">
                                 <span class="fas fa-th-large me-2"></span> 
-                                <span class="d-none d-md-inline">Español Aqui</span>
+                                <span class="d-none d-md-inline">English Here</span>
                             </a>
                         </div>
                     </div>
@@ -73,26 +99,26 @@
         </section>
         <!-- Section -->
         <div class="section section-md pt-4" style="padding-bottom: 0rem;">
-            <form action="{% url 'sucess' %}" method="post" id="form">
+            <form action="" method="post" id="form">
                 <div class="container">
                     <div class="row mb-4 mb-lg-5">
                         <div class="col-lg-4 col-sm-6">
                             <!-- Form -->
                             {% csrf_token %}
                             <div class="mb-4">
-                                <label for="validationServerLastName">Last Name</label>
+                                <label for="validationServerLastName">Apellido</label>
                                 {{ form.lastName }}
                             </div>
                             <!-- End of Form -->
                             <!-- Form -->
                             <div class="mb-4">
-                                <label for="PhoneNumber">Phone Number</label>
+                                <label for="PhoneNumber">número de teléfono</label>
                                 {{ form.phoneNumber }}
                             </div>
                             <!-- End of Form -->
                             <!-- Form -->
                             <div class="mb-4">
-                                <label class="my-1 me-2" for="PhotosNeeded">Do You Need Photos Taken?</label>
+                                <label class="my-1 me-2" for="PhotosNeeded">¿Necesita fotos?</label>
                                 {{ form.photosNeeded }}
                             </div>
                             <!-- End of Form -->
@@ -100,13 +126,13 @@
                         <div class="col-lg-4 col-sm-6">
                             <!-- Form -->
                             <div class="mb-4">
-                                <label for="NumberOfPassports">Number of People Applying for Passports</label>
+                                <label for="NumberOfPassports">Numero de personas que quieren aplicar.</label>
                                 {{ form.numPassports }}
                             </div>
                             <!-- End of Form -->
                             <!-- Form -->
                             <div class="mb-4">
-                                <label class="my-1 me-2" for="ValidID">Do you have a valid state issued ID?</label>
+                                <label class="my-1 me-2" for="ValidID">¿Tiene una identificación válida emitida por el estado?</label>
                                 {{ form.validID }}
 
                                 {% if form.validID.errors %}
@@ -120,7 +146,7 @@
                             <!-- End of Form -->
                             <!-- Form -->
                             <div class="mb-4">
-                                <label class="my-1 me-2" for="HasCheck">Do you have a check or a money order for the State Department?</label>
+                                <label class="my-1 me-2" for="HasCheck">¿Tiene un cheque o giro postal para el Departamento de Estado?</label>
                                 {{ form.moneyOrder }}
 
                                 {% if form.moneyOrder.errors %}
@@ -136,7 +162,7 @@
                         <div class="col-lg-4 col-sm-6">
                             <!-- Form -->
                             <div class="mb-4">
-                                <label class="my-1 me-2" for="minorInfo">Are both parents present or do you have correct supplemntal documentation?</label>
+                                <label class="my-1 me-2" for="minorInfo">¿Ambos padres están presentes o tiene la documentación complementaria correcta?</label>
                                 {{ form.parentApproval }}
 
                                 {% if form.parentApproval.errors %}
@@ -150,7 +176,7 @@
                             <!-- End of Form -->
                             <!-- Radio -->
                             <fieldset>
-                                <legend class="h6">Which of the following did you bring?</legend>
+                                <legend class="h6">¿Cuál de los siguientes trajiste?</legend>
                                 {{ form.IDtype }}
                             </fieldset>
                             <!-- End of Radio -->
@@ -160,7 +186,7 @@
                 <div class="container">
                     <div class="row mb-4 mb-lg-5">
                         <div class="mb-4">
-                            <label class="my-1 me-2" for="HasCheck">Are you prepared to pay the library a separate fee of $35/passport (plus additional $15/photo)?</label>
+                            <label class="my-1 me-2" for="HasCheck">¿Está preparado para pagarle a la biblioteca una tarifa separada de $35/pasaporte (más $15/foto adicional)?</label>
                             {{ form.libraryPayment }}
 
                             {% if form.libraryPayment.errors %}
@@ -174,8 +200,8 @@
                         <div class="d-grid">
                             <div class="container">
                                 <div class="row mb-4 mb-lg-5">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <button type="reset" class="btn btn-danger" href="/" value="Reset">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                    <button type="reset" class="btn btn-danger" href="/" value="Reset">Borrar</button>
                                 </div>
                             </div>  
                         </div>

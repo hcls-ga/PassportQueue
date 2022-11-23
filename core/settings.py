@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
     'bootstrap_datepicker_plus',
-    'bootstrap3',
+    #'bootstrap3', #bootstrap doesn't recognize bootstrap in my conda environment
 ]
 
 MIDDLEWARE = [

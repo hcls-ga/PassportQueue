@@ -49,6 +49,39 @@ def index(request):
 
     return render(request,'home/index.html', {"form": form, "msg":msg})
 
+def index_ex(request):
+    context = {'segment': 'index'}
+    
+
+    msg = "Test"
+
+    if request.method == 'POST':
+        form = patronRegistration(request.POST)
+        msg = "Wasn't Valid"
+        if form.is_valid():
+            lName = form.cleaned_data.get("lastName")
+            pNumber = form.cleaned_data.get("phoneNumber")
+            photos = form.cleaned_data.get("photosNeeded")
+            numPassports = form.cleaned_data.get("numPassports")
+            validID = form.cleaned_data.get("validID")
+            moneyOrder = form.cleaned_data.get("moneyOrder")
+            minorInfo = form.cleaned_data.get("parentApproval")
+            IDType = form.cleaned_data.get("IDType")
+            libraryPayment = form.cleaned_data.get("libraryPayment")
+            msg = lName
+            patron = Patron(
+                last_name = lName,
+                phone_number = pNumber,
+                photo_status = photos,
+                total_passports = numPassports,
+                datetime_submitted = datetime.now(pytz.utc),
+                status = "waiting"
+            ).save()
+    else:
+        form = patronRegistration()
+
+    return render(request,'home/index_es.html', {"form": form, "msg":msg})
+
 
 @login_required(login_url="/login/")
 def pages(request):
@@ -93,3 +126,15 @@ def editPatron(request, id):
 
 def reports(request):
     return render(request, 'home/report.html')
+
+"""
+This is the page that users will hit after they sucessfully submit the form.
+I am hopeing to have a count of the people in front of them.
+"""
+def sucess(request):
+    active = Patron.objects.filter(active=True)
+    count = active.count
+    # It took me 2 hours to figure out that {'count',count} should be {'count':count}
+    # I could clean this up but I am done.
+    return render(request, 'home/sucess.html', {'count':count})
+    
