@@ -16,11 +16,19 @@ YNoptions = (
     (False,"No"),
 )
 
+YNAoptions = (
+    (False, "-"),
+    (True,"Yes"),
+    (False,"No"),
+    (True,"N/A")
+)
+
 def YN_validator(value):
     if value == "No" or value == False or value == "False":
         raise forms.ValidationError("You MUST have the information requested.")
     else:
         print(value)
+
 
 
 class patronRegistration(forms.Form):
@@ -63,7 +71,6 @@ class patronRegistration(forms.Form):
         widget=forms.Select(
             attrs={'class':'form-select'}
         ),
-        validators=[YN_validator,]
     )
 
     numPassports = forms.IntegerField(
@@ -96,7 +103,7 @@ class patronRegistration(forms.Form):
 
     parentApproval = forms.TypedChoiceField(
         label="Are both parents present or do you have correct supplemental documentation?",
-        choices=YNoptions,
+        choices=YNAoptions,
         widget=forms.Select(
             attrs={'class':'form-select'}
         ),
