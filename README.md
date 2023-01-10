@@ -133,8 +133,7 @@ Switching the DB Location is shown in the Core\Settings.py file
 - [Django](https://www.djangoproject.com/) - The official website
 - [Boilerplate Code](https://appseed.us/boilerplate-code) - Index provided by **AppSeed**
 - [Boilerplate Code](https://github.com/app-generator/boilerplate-code) - Index published on Github
-
+- [Dylan Young](Hallcountylibrary.org) - Hall County Library
 <br />
 
 ---
-[Django Pixel Lite](https://appseed.us/django/django-pixel-bootstrap-uikit) - Provided by **AppSeed** [App Generator](https://appseed.us/app-generator).
