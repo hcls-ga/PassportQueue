@@ -14,7 +14,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.urls import reverse
-
+from django.db.models import Sum
+from django.db.models import Max
 from .forms import patronModification, patronRegistration
 def index(request):
     context = {'segment': 'index'}
@@ -135,9 +136,12 @@ I am hopeing to have a count of the people in front of them.
 """
 
 def sucess(request):
-    active = Patron.objects.filter(active=True)
-    count = active.count() - 1
+    # Grab the last person in line
+    top = Patron.objects.aggregate(Max('order'))['order__max']
+    # Sum of Total_Passports for order numbers larger than 0 and less than the person who just submitted the form. 
+    count = Patron.objects.filter(order__lt=top, order__gt=0).aggregate(Sum('total_passports'))
+
     # It took me 2 hours to figure out that {'count',count} should be {'count':count}
     # I could clean this up but I am done.
-    return render(request, 'home/sucess.html', {'count':count})
+    return render(request, 'home/sucess.html', {'count':count['total_passports__sum']})
     
