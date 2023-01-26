@@ -16,7 +16,8 @@ from django.template import loader
 from django.urls import reverse
 from django.db.models import Sum
 from django.db.models import Max
-from .forms import patronModification, patronRegistration
+from .forms import patronModification, patronRegistration, patronRegistrationES
+
 def index(request):
     context = {'segment': 'index'}
     
@@ -58,7 +59,7 @@ def index_ex(request):
     msg = "Test"
 
     if request.method == 'POST':
-        form = patronRegistration(request.POST)
+        form = patronRegistrationES(request.POST)
         msg = "Wasn't Valid"
         if form.is_valid():
             lName = form.cleaned_data.get("lastName")
@@ -79,9 +80,9 @@ def index_ex(request):
                 datetime_submitted = datetime.now(pytz.utc),
                 status = "waiting"
             ).save()
-            return redirect('sucess')
+            return redirect('sucessES')
     else:
-        form = patronRegistration()
+        form = patronRegistrationES()
 
     return render(request,'home/index_es.html', {"form": form, "msg":msg})
 
@@ -145,3 +146,12 @@ def sucess(request):
     # I could clean this up but I am done.
     return render(request, 'home/sucess.html', {'count':count['total_passports__sum']})
     
+def sucessES(request):
+    # Grab the last person in line
+    top = Patron.objects.aggregate(Max('order'))['order__max']
+    # Sum of Total_Passports for order numbers larger than 0 and less than the person who just submitted the form. 
+    count = Patron.objects.filter(order__lt=top, order__gt=0).aggregate(Sum('total_passports'))
+
+    # It took me 2 hours to figure out that {'count',count} should be {'count':count}
+    # I could clean this up but I am done.
+    return render(request, 'home/sucessES.html', {'count':count['total_passports__sum']})

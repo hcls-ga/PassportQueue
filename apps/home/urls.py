@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('reports', views.reports, name='report'),
     path('sucess', views.sucess, name='sucess'),
+    path('sucessES', views.sucessES, name='sucessES'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
