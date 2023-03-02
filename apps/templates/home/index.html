@@ -74,11 +74,24 @@
         <!-- Section -->
         <div class="section section-md pt-4" style="padding-bottom: 0rem;">
             <form method="post" id="form">
+                {% csrf_token %}
+                <div class="container">
+                    <div clas="mb-4">
+                        <label for="finishedApp">Before submitting this form, have you have already filled out a passport application in <b>BLACK</b> ink?</label>
+                        {{ form.finishedApp }}
+                        {% if form.finishedApp.errors %}
+                                    <ol>
+                                    {% for error in form.finishedApp.errors %}
+                                        <div class="alert alert-danger" role="alert">{{ error|escape }}</div>
+                                    {% endfor %}
+                                    </ol>
+                        {% endif %}
+                    </div>
+                </div>
                 <div class="container">
                     <div class="row mb-4 mb-lg-5">
                         <div class="col-lg-4 col-sm-6">
                             <!-- Form -->
-                            {% csrf_token %}
                             <div class="mb-4">
                                 <label for="validationServerLastName">Last Name</label>
                                 {{ form.lastName }}
